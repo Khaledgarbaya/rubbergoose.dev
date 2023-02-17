@@ -7,6 +7,7 @@ import {
   Meta,
   Outlet,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
 } from "@remix-run/react";
 import Footer from "~/components/footer";
@@ -94,7 +95,21 @@ export default function App() {
     </Document>
   );
 }
+export function CatchBoundary() {
+  const caught = useCatch()
 
+  return (
+    <Document user={null} title={`${caught.status} ${caught.statusText}`}>
+      <div className="rounded-md bg-red-50 p-4">
+        <div className="flex">
+          <div className="ml-3">
+            <h1 className="text-sm font-medium text-red-800">{caught.status} {caught.statusText}</h1>
+          </div>
+        </div>
+      </div>
+    </Document>
+  )
+}
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document user={null} title="Uh-oh!">
