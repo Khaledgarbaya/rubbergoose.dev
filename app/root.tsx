@@ -29,7 +29,6 @@ export function links() {
 }
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Rubber Goose",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -38,13 +37,13 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   return json({ user })
 }
 
-export default function App() {
-  const { user } = useLoaderData<typeof loader>()
+function Document({ children, user, title }: { children: React.ReactNode, user: { username: string } | null, title: string }) {
   return (
     <html lang="en">
       <head>
         <Meta />
         <Links />
+        <title>{title}</title>
       </head>
       <body className="bg-slate-900 text-white flex flex-col min-h-screen">
         <nav className="container mx-auto flex justify-between items-center">
@@ -79,11 +78,36 @@ export default function App() {
             </li>
           </ul>
         </nav>
-        <Outlet />
+        {children}
         <ScrollRestoration />
         <LiveReload />
         <Footer />
       </body>
     </html>
+  )
+}
+export default function App() {
+  const { user } = useLoaderData<typeof loader>()
+  return (
+    <Document user={user} title="Rubbergoose">
+      <Outlet />
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <Document user={null} title="Uh-oh!">
+      <div className="rounded-md bg-red-50 p-4">
+        <div className="flex">
+          <div className="ml-3">
+            <h1 className="text-sm font-medium text-red-800">App Error</h1>
+            <div className="mt-2 text-sm text-red-700">
+              <pre>{error.message}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Document>
   );
 }
