@@ -1,6 +1,5 @@
 import { Link, useActionData, useSearchParams } from "@remix-run/react";
 import type { ActionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { createUserSession, login, register } from "~/utils/session.server";
 
 import { db } from "~/utils/db.server";
@@ -32,7 +31,7 @@ export const action = async ({ request }: ActionArgs) => {
   const username = form.get("username");
   const password = form.get("password");
   const redirectTo = validateUrl(
-    form.get("redirectTo") || "/dashboard"
+    form.get("redirectTo") as string || "/dashboard"
   );
   if (
     typeof loginType !== "string" ||
