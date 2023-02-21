@@ -10,9 +10,11 @@ export const meta: MetaFunction = () => {
 }
 
 export async function loader() {
+
   const posts = await contentfulClient.getEntries({ limit: 3, content_type: 'post', order: '-sys.createdAt' });
   const tutorials = await contentfulClient.getEntries({ limit: 3, content_type: 'tutorial', order: '-sys.createdAt' });
   const tips = await contentfulClient.getEntries({ limit: 3, content_type: 'tip', order: '-sys.createdAt' });
+
   return json({ posts: posts.items, tutorials: tutorials.items, tips: tips.items });
 }
 export default function Index() {
