@@ -2,7 +2,7 @@ import { json, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { createClient } from "contentful";
 import BlogCollection from "~/components/blog-collection";
-
+import type { Post, Tip, Tutorial } from "~/types/types";
 export const meta: MetaFunction = () => {
   return {
     title: 'RubberGoose - Learn Web Development'
@@ -15,10 +15,12 @@ export async function loader() {
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
   });
   const posts = await client.getEntries({ limit: 3, content_type: 'post', order: '-sys.createdAt' });
-  return json({ posts: posts.items });
+  const tutorials = await client.getEntries({ limit: 3, content_type: 'tutorial', order: '-sys.createdAt' });
+  const tips = await client.getEntries({ limit: 3, content_type: 'tip', order: '-sys.createdAt' });
+  return json({ posts: posts.items, tutorials: tutorials.items, tips: tips.items });
 }
 export default function Index() {
-  const { posts } = useLoaderData<typeof loader>();
+  const { posts, tips, tutorials } = useLoaderData<{ posts: Post[], tips: Tip[], tutorials: Tutorial[] }>();
   return (
     <main className="container mx-auto p-4">
       <div className="flex flex-wrap-reverse mt-16 items-center justify-center">
@@ -38,7 +40,9 @@ export default function Index() {
           Tutorials on our site are made to guide you through the entire process of creating a practical application. Working on projects that you can be proud of adding to your portfolio is a great way to master the core concepts, tools, and approaches for web development.
         </p>
       </div>
-      <BlogCollection posts={posts} />
+      <BlogCollection baseRoute="tutorials" posts={tutorials} title="Latest Tutorials" description="Checkout our latest Tutorials" />
+      <BlogCollection baseRoute="blog" posts={posts} title="From The Blog" description="Checkout our latest blog post entries" />
+      <BlogCollection baseRoute="tips" posts={tips} title="Hot Tips just out of the oven" description="Checkout our latest hottest tips" />
     </main>
   )
 }
