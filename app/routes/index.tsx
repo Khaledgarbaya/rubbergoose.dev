@@ -1,7 +1,7 @@
 import { json, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { createClient } from "contentful";
 import BlogCollection from "~/components/blog-collection";
+import { contentfulClient } from "~/utils/contentful.server";
 import type { Post, Tip, Tutorial } from "~/types/types";
 export const meta: MetaFunction = () => {
   return {
@@ -10,13 +10,9 @@ export const meta: MetaFunction = () => {
 }
 
 export async function loader() {
-  const client = createClient({
-    space: process.env.CONTENTFUL_SPACE_ID!,
-    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
-  });
-  const posts = await client.getEntries({ limit: 3, content_type: 'post', order: '-sys.createdAt' });
-  const tutorials = await client.getEntries({ limit: 3, content_type: 'tutorial', order: '-sys.createdAt' });
-  const tips = await client.getEntries({ limit: 3, content_type: 'tip', order: '-sys.createdAt' });
+  const posts = await contentfulClient.getEntries({ limit: 3, content_type: 'post', order: '-sys.createdAt' });
+  const tutorials = await contentfulClient.getEntries({ limit: 3, content_type: 'tutorial', order: '-sys.createdAt' });
+  const tips = await contentfulClient.getEntries({ limit: 3, content_type: 'tip', order: '-sys.createdAt' });
   return json({ posts: posts.items, tutorials: tutorials.items, tips: tips.items });
 }
 export default function Index() {
