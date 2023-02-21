@@ -3,6 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { contentfulClient } from "~/utils/contentful.server";
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
+import { Link, useCatch, useParams } from "@remix-run/react";
 
 import type { Post } from "~/types/types";
 export const meta: MetaFunction<Post> = ({ data }) => {
@@ -32,4 +33,36 @@ export default function Index() {
       </div>
     </main>
   )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  if (caught.status === 404) {
+    return (
+      <div className="container mx-auto p-4">
+        <div className="prose prose-amber max-w-6xl bg-white mx-auto p-8 rounded mt-16 ">
+          <h1>Page not found</h1>
+          <p>Sorry, we couldn’t find the page you’re looking for.</p>
+          <Link to="/" className="rounded-md bg-amber-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">Go home</Link>
+        </div>
+      </div>
+    )
+  }
+  throw new Error(`Something went wrong: ${caught.status}`);
+}
+export function ErrorBoundary() {
+  const { blogSlug } = useParams();
+  return (
+
+    <div className="rounded-md bg-red-50 p-4">
+      <div className="flex">
+        <div className="ml-3">
+          <h1 className="text-sm font-medium text-red-800">Oups</h1>
+          <div className="mt-2 text-sm text-red-700">
+            {`There was an error loading the blog post by the slug ${blogSlug}. Sorry.`}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
