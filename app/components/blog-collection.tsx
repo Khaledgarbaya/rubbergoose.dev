@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
+import type { Post, Tip, Tutorial } from "~/types/types";
 
-export default function BlogCollection({ posts }: any) {
+export default function BlogCollection({ posts, title, description, baseRoute }: { baseRoute: string, posts: Post[] | Tutorial[] | Tip[], title?: string, description?: string }) {
   return (
     <div className="relative mt-32 px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
       <div className="absolute inset-0">
@@ -8,9 +9,9 @@ export default function BlogCollection({ posts }: any) {
       </div>
       <div className="relative mx-auto max-w-7xl">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
+            {description}
           </p>
         </div>
         <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
@@ -26,16 +27,16 @@ export default function BlogCollection({ posts }: any) {
                       Category
                     </a>
                   </p>
-                  <Link to={`blog/${post.fields.slug}`} className="mt-2 block">
+                  <Link to={`${baseRoute}/${post.fields.slug}`} className="mt-2 block">
                     <p className="text-xl font-semibold text-gray-900">{post.fields.title}</p>
-                    <p className="mt-3 text-base text-gray-500">{post.fields.content.substring(0, 255)}</p>
+                    <p className="mt-3 text-base text-gray-500">{post.fields.content.substring(0, 160)}</p>
                   </Link>
                 </div>
                 <div className="mt-6 flex items-center">
                   <div className="flex-shrink-0">
                     <a href="#">
                       <span className="sr-only">{post.fields.author.fields.fullName}</span>
-                      <img className="h-10 w-10 rounded-full" src="" alt="" />
+                      <img className="h-10 w-10 rounded-full" src={`https:${post.fields.author.fields.avatar.fields.file.url}?w=50&h=50&fit=thumb&q=100`} alt={post.fields.author.fields.fullName} />
                     </a>
                   </div>
                   <div className="ml-3">
