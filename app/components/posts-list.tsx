@@ -4,23 +4,15 @@ import type { Entry } from "contentful";
 
 export default function PostsList({
   posts,
-  title,
-  description,
   baseRoute,
 }: {
   baseRoute: string;
   posts: Entry<PostFields | TipFields | TutorialFields>[];
-  title?: string;
-  description?: string;
 }) {
   return (
-    <div className="py-24 sm:py-32 max-w-6xl bg-white mx-auto p-8 rounded mt-16">
+    <div className="py-12 max-w-6xl bg-white mx-auto p-8 rounded-2xl mt-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-2 text-lg leading-8 text-gray-600">{description}</p>
           <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
             {posts.map((post) => (
               <article
@@ -35,13 +27,15 @@ export default function PostsList({
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                 </div>
-                <div>
+                <div className="bg-gradient-to-l from-slate-100 via-white to-white rounded-xl p-4">
                   <div className="flex items-center gap-x-4 text-xs">
                     <time
                       dateTime={post.sys.createdAt}
                       className="text-gray-500"
                     >
-                      {post.sys.createdAt}
+                      {new Intl.DateTimeFormat("en-US", {
+                        dateStyle: "long",
+                      }).format(new Date(post.sys.createdAt))}
                     </time>
                     {post.fields.tags &&
                       (post.fields.tags as string[]).map((tag: string) => (

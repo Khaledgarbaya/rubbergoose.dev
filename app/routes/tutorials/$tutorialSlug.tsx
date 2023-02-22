@@ -8,6 +8,7 @@ import sanitizeHtml from "sanitize-html";
 
 import type { TutorialFields } from "~/types/types";
 import type { Entry } from "contentful";
+import NewsletterSignup from "~/components/newsletter-signup";
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (!data) return { title: "RubberGoose - Tutorial Not Found" };
 
@@ -42,6 +43,7 @@ export default function Index() {
           }}
         />
       </div>
+      <NewsletterSignup />
     </main>
   );
 }
