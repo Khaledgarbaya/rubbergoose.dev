@@ -46,7 +46,7 @@ export default function BlogCollection({ posts, title, description, baseRoute }:
                       </a>
                     </p>
                     <div className="flex space-x-1 text-sm text-gray-500">
-                      <time dateTime={post.sys.createdAt}>{post.sys.createdAt}</time>
+                      <time dateTime={post.sys.createdAt}>{new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(post.sys.createdAt))}</time>
                       <span aria-hidden="true">&middot;</span>
                       <span>2min read</span>
                     </div>
