@@ -6,6 +6,7 @@ import PostsList from "~/components/posts-list";
 import type { MetaFunction } from "@remix-run/node";
 import type { TipFields } from "~/types/types";
 import type { Entry } from "contentful";
+import NewsletterSignup from "~/components/newsletter-signup";
 
 export const meta: MetaFunction = () => {
   return {
@@ -24,12 +25,17 @@ export default function Index() {
   const { tips } = useLoaderData<typeof loader>();
   return (
     <main className="container mx-auto p-4">
+      <div className="mt-8">
+        <h1 className="text-4xl font-bold tracking-tight text-amber-600 sm:text-6xl">
+          Hot Tips just out of the oven
+        </h1>
+        <p className="text-lg leading-8 text-white">Checkout our latest hottest tips</p>
+      </div>
       <PostsList
-        baseRoute="tips"
+        baseRoute="/tips"
         posts={tips}
-        title="Hot Tips just out of the oven"
-        description="Checkout our latest hottest tips"
       />
+      <NewsletterSignup />
     </main>
   );
 }
