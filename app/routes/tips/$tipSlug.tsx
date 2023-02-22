@@ -6,7 +6,7 @@ import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import { Link, useCatch, useParams } from "@remix-run/react";
 
-import type { TipFileds } from "~/types/types";
+import type { TipFields } from "~/types/types";
 import type { Entry } from "contentful";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -27,7 +27,7 @@ export const loader = async ({ params }: LoaderArgs) => {
       status: 404,
     });
   }
-  return json({ tip: tip.items[0] as Entry<TipFileds> });
+  return json({ tip: tip.items[0] as Entry<TipFields> });
 };
 export default function Index() {
   const { tip } = useLoaderData<typeof loader>();
