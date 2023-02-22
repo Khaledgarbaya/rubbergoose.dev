@@ -116,6 +116,7 @@ const PostFieldsSchema = z.object({
     }),
   }),
   content: z.string(),
+  tags: z.array(z.string()),
 });
 
 const TutorialFieldsSchema = z.object({
@@ -358,4 +359,4 @@ const TipFieldsSchema = z.object({
 
 export type TutorialFields = z.infer<typeof TutorialFieldsSchema>;
 export type PostFields = z.infer<typeof PostFieldsSchema>;
-export type TipFileds = z.infer<typeof TipFieldsSchema>;
+export type TipFields = z.infer<typeof TipFieldsSchema>;

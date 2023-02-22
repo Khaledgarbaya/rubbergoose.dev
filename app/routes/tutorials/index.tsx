@@ -1,16 +1,37 @@
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { contentfulClient } from "~/utils/contentful.server";
+import PostsList from "~/components/posts-list";
+
 import type { MetaFunction } from "@remix-run/node";
+import type { TutorialFields } from "~/types/types";
+import type { Entry } from "contentful";
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'RubberGoose - Tutorials'
-  }
+    title: "RubberGoose - Tutorials",
+  };
+};
+export async function loader() {
+  const tutorials = await contentfulClient.getEntries({
+    content_type: "tutorial",
+    order: "-sys.createdAt",
+  });
+
+  return json({ tutorials: tutorials.items as Entry<TutorialFields>[] });
 }
 export default function Index() {
+  const { tutorials } = useLoaderData<typeof loader>();
   return (
     <main className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold">Tutorials</h1>
+      <PostsList
+        baseRoute="tutorials"
+        posts={tutorials}
+        title="Latest Tutorials"
+        description="Checkout our latest Tutorials"
+      />
     </main>
-  )
+  );
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
