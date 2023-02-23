@@ -43,7 +43,7 @@ export default function Index() {
       <div className="flex flex-wrap-reverse mt-16 items-center justify-center">
         <div className="w-full md:w-2/3">
           <h1 className="text-6xl font-bold text-amber-600 max-w-xl md:max-w-2xl">
-            Build Real Wrold Projects To Learn Web Development
+            Build Real World Projects To Learn Web Development
           </h1>
           <p className="text-xl py-4 max-w-xl md:max-w-2xl">
             Here at RubberGoose, we think getting your hands dirty is the

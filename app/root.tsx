@@ -46,7 +46,31 @@ function Document({ children, user, title }: { children: React.ReactNode, user: 
         <Links />
         <title>{title}</title>
       </head>
-      <body className="bg-slate-900 text-white flex flex-col min-h-screen">
+      <body className="bg-slate-900 text-white flex flex-col min-h-screen relative">
+        <svg
+          className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
+              width={200}
+              height={200}
+              x="50%"
+              y={-1}
+              patternUnits="userSpaceOnUse"
+            >
+              <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+          </defs>
+          <svg x="50%" y={-1} className="overflow-visible fill-gray-800/20">
+            <path
+              d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+              strokeWidth={0}
+            />
+          </svg>
+          <rect width="100%" height="100%" strokeWidth={0} fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+        </svg>
         <nav className="container mx-auto flex justify-between items-center">
           <ul className="flex">
             <li className="p-4">
