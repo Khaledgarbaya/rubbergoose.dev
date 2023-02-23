@@ -18,7 +18,6 @@ export async function loader() {
     content_type: "post",
     order: "-sys.createdAt",
   });
-  console.log(posts);
   return json({ posts: posts.items as Entry<PostFields>[] });
 }
 export default function Index() {
