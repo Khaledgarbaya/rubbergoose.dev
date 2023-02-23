@@ -34,8 +34,6 @@ export default function Index() {
       <PostsList
         baseRoute="/tutorials"
         posts={tutorials}
-        title="Latest Tutorials"
-        description="Checkout our latest Tutorials"
       />
       <NewsletterSignup />
     </main>
