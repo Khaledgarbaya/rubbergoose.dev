@@ -7,7 +7,10 @@ export default function PostsList({
   baseRoute,
 }: {
   baseRoute: string
-  posts: Entry<PostFields | TipFields | TutorialFields>[]
+  posts: Omit<
+    Entry<PostFields | TipFields | TutorialFields>,
+    'toPlainObject' | 'update'
+  >[]
 }) {
   return (
     <div className="py-12 max-w-6xl bg-white mx-auto p-8 rounded-2xl mt-16">

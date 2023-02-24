@@ -19,7 +19,12 @@ export async function loader() {
     order: '-sys.createdAt',
   })
 
-  return json({ tutorials: tutorials.items as Entry<TutorialFields>[] })
+  return json({
+    tutorials: tutorials.items as Omit<
+      Entry<TutorialFields>,
+      'toPlainObject' | 'update'
+    >[],
+  })
 }
 export default function Index() {
   const { tutorials } = useLoaderData<typeof loader>()

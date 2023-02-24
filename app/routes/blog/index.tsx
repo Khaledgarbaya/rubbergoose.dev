@@ -18,7 +18,9 @@ export async function loader() {
     content_type: 'post',
     order: '-sys.createdAt',
   })
-  return json({ posts: posts.items as Entry<PostFields>[] })
+  return json({
+    posts: posts.items as Omit<Entry<PostFields>, 'toPlainObject' | 'update'>[],
+  })
 }
 export default function Index() {
   const { posts } = useLoaderData<typeof loader>()
