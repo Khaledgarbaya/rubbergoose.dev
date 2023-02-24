@@ -1,16 +1,12 @@
 import { Link } from '@remix-run/react'
-import type { PostFields, TipFields, TutorialFields } from '~/types/types'
-import type { Entry } from 'contentful'
+import type { PostEntry, TutorialEntry, TipEntry } from '~/types/types'
 
 export default function PostsList({
   posts,
   baseRoute,
 }: {
   baseRoute: string
-  posts: Omit<
-    Entry<PostFields | TipFields | TutorialFields>,
-    'toPlainObject' | 'update'
-  >[]
+  posts: PostEntry[] | TutorialEntry[] | TipEntry[]
 }) {
   return (
     <div className="py-12 max-w-6xl bg-white mx-auto p-8 rounded-2xl mt-16">

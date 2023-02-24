@@ -4,8 +4,7 @@ import { contentfulClient } from '~/utils/contentful.server'
 import PostsList from '~/components/posts-list'
 
 import type { MetaFunction } from '@remix-run/node'
-import type { TutorialFields } from '~/types/types'
-import type { Entry } from 'contentful'
+import type { TutorialEntry } from '~/types/types'
 import NewsletterSignup from '~/components/newsletter-signup'
 
 export const meta: MetaFunction = () => {
@@ -14,16 +13,13 @@ export const meta: MetaFunction = () => {
   }
 }
 export async function loader() {
-  const tutorials = await contentfulClient.getEntries({
+  const tutorials = (await contentfulClient.getEntries({
     content_type: 'tutorial',
     order: '-sys.createdAt',
-  })
+  })) as { items: TutorialEntry[] }
 
   return json({
-    tutorials: tutorials.items as Omit<
-      Entry<TutorialFields>,
-      'toPlainObject' | 'update'
-    >[],
+    tutorials: tutorials.items,
   })
 }
 export default function Index() {

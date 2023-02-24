@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react'
-import type { PostFields, TipFields, TutorialFields } from '~/types/types'
-import type { Entry } from 'contentful'
+import type { PostEntry, TutorialEntry, TipEntry } from '~/types/types'
 
 export default function BlogCollection({
   posts,
@@ -9,7 +8,7 @@ export default function BlogCollection({
   baseRoute,
 }: {
   baseRoute: string
-  posts: Entry<PostFields>[] | Entry<TutorialFields>[] | Entry<TipFields>[]
+  posts: PostEntry[] | TutorialEntry[] | TipEntry[]
   title?: string
   description?: string
 }) {
