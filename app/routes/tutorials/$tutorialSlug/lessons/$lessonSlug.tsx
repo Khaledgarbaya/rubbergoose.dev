@@ -2,7 +2,7 @@ import { json, LoaderArgs, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
-import { LessonEntry, TutorialEntry } from '~/types/types'
+import { TutorialEntry } from '~/types/types'
 import { contentfulClient } from '~/utils/contentful.server'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
