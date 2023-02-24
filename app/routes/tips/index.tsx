@@ -19,7 +19,9 @@ export async function loader() {
     order: '-sys.createdAt',
   })
 
-  return json({ tips: tips.items as Entry<TipFields>[] })
+  return json({
+    tips: tips.items as Omit<Entry<TipFields>, 'toPlainObject' | 'update'>[],
+  })
 }
 export default function Index() {
   const { tips } = useLoaderData<typeof loader>()

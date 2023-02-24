@@ -84,41 +84,43 @@ function Document({
             fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
           />
         </svg>
-        <nav className="container mx-auto flex justify-between items-center">
-          <ul className="flex">
-            <li className="p-4">
-              <Link to="/">Rubber goose</Link>
-            </li>
-            <li className="p-4">
-              <Link to="/tutorials">Tutorials</Link>
-            </li>
-            <li className="p-4">
-              <Link to="/tips">Tips</Link>
-            </li>
-            <li className="p-4">
-              <Link to="/blog">Blog</Link>
-            </li>
-          </ul>
-          <ul className="flex">
-            <li className="p-4">
-              {user ? (
-                <div className="flex justify-between space-x-4 items-center">
-                  <span>{`Hi ${user.username}`}</span>
-                  <form action="/logout" method="post">
-                    <button
-                      type="submit"
-                      className="group relative flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                    >
-                      Logout
-                    </button>
-                  </form>
-                </div>
-              ) : (
-                <Link to="/login">Login</Link>
-              )}
-            </li>
-          </ul>
-        </nav>
+        <div className="bg-slate-900 shadow-xl">
+          <nav className="container mx-auto flex justify-between items-center">
+            <ul className="flex">
+              <li className="p-4">
+                <Link to="/">Rubber goose</Link>
+              </li>
+              <li className="p-4">
+                <Link to="/tutorials">Tutorials</Link>
+              </li>
+              <li className="p-4">
+                <Link to="/tips">Tips</Link>
+              </li>
+              <li className="p-4">
+                <Link to="/blog">Blog</Link>
+              </li>
+            </ul>
+            <ul className="flex">
+              <li className="p-4">
+                {user ? (
+                  <div className="flex justify-between space-x-4 items-center">
+                    <span>{`Hi ${user.username}`}</span>
+                    <form action="/logout" method="post">
+                      <button
+                        type="submit"
+                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                      >
+                        Logout
+                      </button>
+                    </form>
+                  </div>
+                ) : (
+                  <Link to="/login">Login</Link>
+                )}
+              </li>
+            </ul>
+          </nav>
+        </div>
         {children}
         <ScrollRestoration />
         <LiveReload />
