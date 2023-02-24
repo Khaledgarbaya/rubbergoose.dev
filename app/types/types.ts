@@ -120,9 +120,19 @@ const PostFieldsSchema = z.object({
   tags: z.array(z.string()),
 })
 
+const LessonFieldsSchema = z.object({
+  fields: z.object({
+    title: z.string(),
+    slug: z.string(),
+    content: z.string(),
+    videoUrl: z.string(),
+    requiresEmail: z.boolean().default(false),
+  }),
+})
 const TutorialFieldsSchema = z.object({
   title: z.string(),
   slug: z.string(),
+  lessons: z.array(LessonFieldsSchema),
   featureImage: z.object({
     metadata: z.object({ tags: z.array(z.unknown()) }),
     sys: z.object({
@@ -361,7 +371,9 @@ const TipFieldsSchema = z.object({
 export type TutorialFields = z.infer<typeof TutorialFieldsSchema>
 export type PostFields = z.infer<typeof PostFieldsSchema>
 export type TipFields = z.infer<typeof TipFieldsSchema>
+export type LessonFields = z.infer<typeof LessonFieldsSchema>
 
+export type LessonEntry = Omit<Entry<LessonFields>, 'toPlainObject' | 'update'>
 export type TutorialEntry = Omit<
   Entry<TutorialFields>,
   'toPlainObject' | 'update'
