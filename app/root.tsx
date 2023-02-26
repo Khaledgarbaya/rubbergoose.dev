@@ -1,7 +1,7 @@
 import type { LoaderArgs, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import {
-  Link,
+  NavLink,
   Links,
   LiveReload,
   Meta,
@@ -84,20 +84,64 @@ function Document({
             fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
           />
         </svg>
-        <div className="bg-slate-900 shadow-xl">
+        <div className="bg-slate-900">
           <nav className="container mx-auto flex justify-between items-center">
             <ul className="flex">
               <li className="p-4">
-                <Link to="/">Rubber goose</Link>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${
+                      isActive
+                        ? 'border-b border-b-amber-500 text-amber-600'
+                        : 'text-white'
+                    }`
+                  }
+                  to="/"
+                >
+                  Rubber goose
+                </NavLink>
               </li>
               <li className="p-4">
-                <Link to="/tutorials">Tutorials</Link>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${
+                      isActive
+                        ? 'border-b border-b-amber-500 text-amber-600'
+                        : 'text-white'
+                    }`
+                  }
+                  to="/tutorials"
+                >
+                  Tutorials
+                </NavLink>
               </li>
               <li className="p-4">
-                <Link to="/tips">Tips</Link>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${
+                      isActive
+                        ? 'border-b border-b-amber-500 text-amber-600'
+                        : 'text-white'
+                    }`
+                  }
+                  to="/tips"
+                >
+                  Tips
+                </NavLink>
               </li>
               <li className="p-4">
-                <Link to="/blog">Blog</Link>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${
+                      isActive
+                        ? 'border-b border-b-amber-500 text-amber-600'
+                        : 'text-white'
+                    }`
+                  }
+                  to="/blog"
+                >
+                  Blog
+                </NavLink>
               </li>
             </ul>
             <ul className="flex">
@@ -115,7 +159,7 @@ function Document({
                     </form>
                   </div>
                 ) : (
-                  <Link to="/login">Login</Link>
+                  <NavLink to="/login">Login</NavLink>
                 )}
               </li>
             </ul>

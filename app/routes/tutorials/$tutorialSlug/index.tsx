@@ -35,7 +35,7 @@ export default function Index() {
   return (
     <main className="container mx-auto p-4">
       <div className="prose prose-amber max-w-6xl bg-white mx-auto p-8 rounded mt-16 ">
-        <h1>Blog: {tutorial.fields.title}</h1>
+        <h1>{tutorial.fields.title}</h1>
         <div
           className="mt-4"
           dangerouslySetInnerHTML={{

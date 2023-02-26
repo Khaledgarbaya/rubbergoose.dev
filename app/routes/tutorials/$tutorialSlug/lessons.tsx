@@ -1,14 +1,15 @@
 import { json, LoaderArgs, MetaFunction } from '@remix-run/node'
-import { Link, Outlet, useLoaderData } from '@remix-run/react'
+import { Link, NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import { TutorialEntry } from '~/types/types'
 import { contentfulClient } from '~/utils/contentful.server'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (!data) return { title: 'RubberGoose - Tutorial Not Found' }
 
-  const { lesson } = data
+  const { lessons } = data
+
   return {
-    title: `RubberGoose - Tutorial: ${lesson?.fields?.title}`,
+    title: `RubberGoose - Tutorial: ${lessons[0]?.fields?.title}`,
   }
 }
 
@@ -33,7 +34,7 @@ export const loader = async ({ params }: LoaderArgs) => {
 export default function Lessons() {
   const { lessons } = useLoaderData<typeof loader>()
   return (
-    <div className='flex bg-slate-800 h-full min-h-screen flex-grow flex-col'>
+    <div className='flex bg-slate-900 mx-auto container h-full min-h-screen flex-grow flex-col px-4'>
       <div className='flex flex-grow flex-col lg:flex-row'>
         <div className='relative z-50 w-full flex-shrink-0 border-r border-gray-800 lg:max-w-[280px] xl:max-w-xs hidden lg:block'>
           <div className='top-0 lg:sticky'>
@@ -51,9 +52,15 @@ export default function Lessons() {
                     <ul className='space-y-2'>
                       {lessons.map((lesson) => (
                         <li key={lesson.fields.slug}>
-                          <Link
+                          <NavLink
                             to={`${lesson.fields.slug}`}
-                            className='flex items-center bg-gray-800 shadow-xl shadow-black/20 px-2'
+                            className={({ isActive }) =>
+                              `flex items-center text-white shadow-xl shadow-black/20 px-2 ${
+                                isActive
+                                  ? 'bg-amber-600 text-white'
+                                  : 'text-gray-800 hover:bg-gray-700 hover:text-white'
+                              }`
+                            }
                           >
                             <svg
                               xmlns='http://www.w3.org/2000/svg'
@@ -71,7 +78,7 @@ export default function Lessons() {
                             <h3 className='p-4 text-base overflow-hidden'>
                               {lesson.fields.title}
                             </h3>
-                          </Link>
+                          </NavLink>
                         </li>
                       ))}
                     </ul>
