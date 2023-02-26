@@ -44,7 +44,7 @@ export default function Index() {
         />
         {tutorial.fields.lessons && tutorial.fields.lessons.length > 0 ? (
           <Link
-            to={`lessons/${tutorial.fields.lessons[0].fields?.slug}`}
+            to={`lessons/${tutorial.fields.lessons[0].fields.slug}`}
             className="group relative flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
           >
             Start Learning

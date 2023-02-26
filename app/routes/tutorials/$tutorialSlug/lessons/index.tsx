@@ -46,7 +46,7 @@ export default function Lessons() {
         <div className='relative flex w-full items-center justify-center'>
           <iframe
             className='w-full aspect-video'
-            src={`${lesson?.fields?.videoUrl}`}
+            src={`${lesson.fields.videoUrl}`}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
             title='Embedded youtube'
