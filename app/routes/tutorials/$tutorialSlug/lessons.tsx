@@ -6,10 +6,10 @@ import { contentfulClient } from '~/utils/contentful.server'
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (!data) return { title: 'RubberGoose - Tutorial Not Found' }
 
-  const { lessons } = data
+  const { tutorial } = data
 
   return {
-    title: `RubberGoose - Tutorial: ${lessons[0]?.fields?.title}`,
+    title: `RubberGoose - Tutorial: ${tutorial.fields.lessons[0]?.fields?.title}`,
   }
 }
 
@@ -29,10 +29,13 @@ export const loader = async ({ params }: LoaderArgs) => {
       status: 404,
     })
   }
-  return json({ lessons: tutorial.items[0].fields.lessons })
+  return json({
+    tutorial: tutorial.items[0],
+  })
 }
 export default function Lessons() {
-  const { lessons } = useLoaderData<typeof loader>()
+  const { tutorial } = useLoaderData<typeof loader>()
+  const { lessons, title } = tutorial.fields
   return (
     <div className='flex bg-slate-900 mx-auto container h-full min-h-screen flex-grow flex-col px-4'>
       <div className='flex flex-grow flex-col lg:flex-row'>
@@ -42,7 +45,7 @@ export default function Lessons() {
               <div className='py-8 top-0 z-10 h-[150px] bg-gradient-to-t from-transparent via-gray-900 to-gray-900 lg:sticky'>
                 <div className='relative flex items-center gap-5 border-b border-gray-800 bg-gray-900 px-3 py-1'>
                   <h2 className='w-full text-2xl font-semibold leading-none'>
-                    Tutorial Title
+                    {title}
                   </h2>
                 </div>
               </div>
