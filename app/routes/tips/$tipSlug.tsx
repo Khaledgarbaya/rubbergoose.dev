@@ -1,37 +1,37 @@
-import type { LoaderArgs, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { contentfulClient } from "~/utils/contentful.server";
-import { marked } from "marked";
-import sanitizeHtml from "sanitize-html";
-import { Link, useCatch, useParams } from "@remix-run/react";
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { contentfulClient } from '~/utils/contentful.server'
+import { marked } from 'marked'
+import sanitizeHtml from 'sanitize-html'
+import { Link, useCatch, useParams } from '@remix-run/react'
 
-import type { TipFields } from "~/types/types";
-import type { Entry } from "contentful";
-import NewsletterSignup from "~/components/newsletter-signup";
+import type { TipFields } from '~/types/types'
+import type { Entry } from 'contentful'
+import NewsletterSignup from '~/components/newsletter-signup'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (!data) return { title: "RubberGoose - Tip Not Found" };
-  const { tip } = data;
+  if (!data) return { title: 'RubberGoose - Tip Not Found' }
+  const { tip } = data
   return {
     title: `RubberGoose - Tip: ${tip.fields.title}`,
-  };
-};
+  }
+}
 
 export const loader = async ({ params }: LoaderArgs) => {
   const tip = await contentfulClient.getEntries({
-    content_type: "tip",
-    "fields.slug": params.tipSlug,
-  });
+    content_type: 'tip',
+    'fields.slug': params.tipSlug,
+  })
   if (tip.items.length === 0) {
-    throw new Response("Not Found", {
+    throw new Response('Not Found', {
       status: 404,
-    });
+    })
   }
-  return json({ tip: tip.items[0] as Entry<TipFields> });
-};
+  return json({ tip: tip.items[0] as Entry<TipFields> })
+}
 export default function Index() {
-  const { tip } = useLoaderData<typeof loader>();
+  const { tip } = useLoaderData<typeof loader>()
   return (
     <main className="container mx-auto p-4">
       <div className="prose prose-slate max-w-6xl bg-white mx-auto p-8 rounded mt-16 ">
@@ -39,17 +39,17 @@ export default function Index() {
         <div
           className="mt-4"
           dangerouslySetInnerHTML={{
-            __html: sanitizeHtml(marked(tip.fields.content || "")),
+            __html: sanitizeHtml(marked(tip.fields.content || '')),
           }}
         />
       </div>
       <NewsletterSignup />
     </main>
-  );
+  )
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useCatch()
   if (caught.status === 404) {
     return (
       <div className="container mx-auto p-4">
@@ -64,12 +64,12 @@ export function CatchBoundary() {
           </Link>
         </div>
       </div>
-    );
+    )
   }
-  throw new Error(`Something went wrong: ${caught.status}`);
+  throw new Error(`Something went wrong: ${caught.status}`)
 }
 export function ErrorBoundary() {
-  const { tipSlug } = useParams();
+  const { tipSlug } = useParams()
   return (
     <div className="rounded-md bg-red-50 p-4">
       <div className="flex">
@@ -81,5 +81,5 @@ export function ErrorBoundary() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from '@remix-run/node'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'RubberGoose - Accessibility'
+    title: 'RubberGoose - Accessibility',
   }
 }
 export default function Accessibility() {

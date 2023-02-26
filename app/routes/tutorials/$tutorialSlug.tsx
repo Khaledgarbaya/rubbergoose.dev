@@ -1,37 +1,37 @@
-import type { LoaderArgs, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { contentfulClient } from "~/utils/contentful.server";
-import { marked } from "marked";
-import { Link, useCatch, useParams } from "@remix-run/react";
-import sanitizeHtml from "sanitize-html";
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { contentfulClient } from '~/utils/contentful.server'
+import { marked } from 'marked'
+import { Link, useCatch, useParams } from '@remix-run/react'
+import sanitizeHtml from 'sanitize-html'
 
-import type { TutorialFields } from "~/types/types";
-import type { Entry } from "contentful";
-import NewsletterSignup from "~/components/newsletter-signup";
+import type { TutorialFields } from '~/types/types'
+import type { Entry } from 'contentful'
+import NewsletterSignup from '~/components/newsletter-signup'
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (!data) return { title: "RubberGoose - Tutorial Not Found" };
+  if (!data) return { title: 'RubberGoose - Tutorial Not Found' }
 
-  const { tutorial } = data;
+  const { tutorial } = data
   return {
     title: `RubberGoose - Tutorial: ${tutorial?.fields?.title}`,
-  };
-};
+  }
+}
 
 export const loader = async ({ params }: LoaderArgs) => {
   const tutorial = await contentfulClient.getEntries({
-    content_type: "tutorial",
-    "fields.slug": params.tutorialSlug,
-  });
+    content_type: 'tutorial',
+    'fields.slug': params.tutorialSlug,
+  })
   if (tutorial.items.length === 0) {
-    throw new Response("Not Found", {
+    throw new Response('Not Found', {
       status: 404,
-    });
+    })
   }
-  return json({ tutorial: tutorial.items[0] as Entry<TutorialFields> });
-};
+  return json({ tutorial: tutorial.items[0] as Entry<TutorialFields> })
+}
 export default function Index() {
-  const { tutorial } = useLoaderData<typeof loader>();
+  const { tutorial } = useLoaderData<typeof loader>()
   return (
     <main className="container mx-auto p-4">
       <div className="prose prose-amber max-w-6xl bg-white mx-auto p-8 rounded mt-16 ">
@@ -39,17 +39,17 @@ export default function Index() {
         <div
           className="mt-4"
           dangerouslySetInnerHTML={{
-            __html: sanitizeHtml(marked(tutorial.fields.content || "")),
+            __html: sanitizeHtml(marked(tutorial.fields.content || '')),
           }}
         />
       </div>
       <NewsletterSignup />
     </main>
-  );
+  )
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useCatch()
   if (caught.status === 404) {
     return (
       <div className="container mx-auto p-4">
@@ -64,12 +64,12 @@ export function CatchBoundary() {
           </Link>
         </div>
       </div>
-    );
+    )
   }
-  throw new Error(`Something went wrong: ${caught.status}`);
+  throw new Error(`Something went wrong: ${caught.status}`)
 }
 export function ErrorBoundary() {
-  const { tutorialSlug } = useParams();
+  const { tutorialSlug } = useParams()
   return (
     <div className="rounded-md bg-red-50 p-4">
       <div className="flex">
@@ -81,5 +81,5 @@ export function ErrorBoundary() {
         </div>
       </div>
     </div>
-  );
+  )
 }

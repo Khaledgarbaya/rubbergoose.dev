@@ -1,20 +1,19 @@
-
-import { json, LoaderArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { requireUserId } from "~/utils/session.server";
+import { json, LoaderArgs, MetaFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { requireUserId } from '~/utils/session.server'
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'RubberGoose - Dashboard'
+    title: 'RubberGoose - Dashboard',
   }
 }
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const userId = await requireUserId(request);
+  const userId = await requireUserId(request)
   return json({ userId })
 }
 export default function Dashboard() {
-  const { userId } = useLoaderData<typeof loader>();
+  const { userId } = useLoaderData<typeof loader>()
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-4xl font-bold">Dashboard user id: {userId}</h1>
@@ -34,5 +33,5 @@ export function ErrorBoundary({ error }: { error: Error }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { Link } from "@remix-run/react";
-import type { PostFields, TipFields, TutorialFields } from "~/types/types";
-import type { Entry } from "contentful";
+import { Link } from '@remix-run/react'
+import type { PostFields, TipFields, TutorialFields } from '~/types/types'
+import type { Entry } from 'contentful'
 
 export default function PostsList({
   posts,
   baseRoute,
 }: {
-  baseRoute: string;
-  posts: Entry<PostFields | TipFields | TutorialFields>[];
+  baseRoute: string
+  posts: Entry<PostFields | TipFields | TutorialFields>[]
 }) {
   return (
     <div className="py-12 max-w-6xl bg-white mx-auto p-8 rounded-2xl mt-16">
@@ -33,8 +33,8 @@ export default function PostsList({
                       dateTime={post.sys.createdAt}
                       className="text-gray-500"
                     >
-                      {new Intl.DateTimeFormat("en-US", {
-                        dateStyle: "long",
+                      {new Intl.DateTimeFormat('en-US', {
+                        dateStyle: 'long',
                       }).format(new Date(post.sys.createdAt))}
                     </time>
                     {post.fields.tags &&
@@ -82,5 +82,5 @@ export default function PostsList({
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 const PostFieldsSchema = z.object({
   title: z.string(),
@@ -117,7 +117,7 @@ const PostFieldsSchema = z.object({
   }),
   content: z.string(),
   tags: z.array(z.string()),
-});
+})
 
 const TutorialFieldsSchema = z.object({
   title: z.string(),
@@ -236,7 +236,7 @@ const TutorialFieldsSchema = z.object({
     }),
   }),
   tags: z.array(z.string()),
-});
+})
 
 const TipFieldsSchema = z.object({
   title: z.string(),
@@ -355,8 +355,8 @@ const TipFieldsSchema = z.object({
     }),
   }),
   tags: z.array(z.string()),
-});
+})
 
-export type TutorialFields = z.infer<typeof TutorialFieldsSchema>;
-export type PostFields = z.infer<typeof PostFieldsSchema>;
-export type TipFields = z.infer<typeof TipFieldsSchema>;
+export type TutorialFields = z.infer<typeof TutorialFieldsSchema>
+export type PostFields = z.infer<typeof PostFieldsSchema>
+export type TipFields = z.infer<typeof TipFieldsSchema>

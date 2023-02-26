@@ -1,43 +1,43 @@
-import type { MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import BlogCollection from "~/components/blog-collection";
-import { contentfulClient } from "~/utils/contentful.server";
-import type { PostFields, TipFields, TutorialFields } from "~/types/types";
-import type { Entry } from "contentful";
-import NewsletterSignup from "~/components/newsletter-signup";
+import type { MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import BlogCollection from '~/components/blog-collection'
+import { contentfulClient } from '~/utils/contentful.server'
+import type { PostFields, TipFields, TutorialFields } from '~/types/types'
+import type { Entry } from 'contentful'
+import NewsletterSignup from '~/components/newsletter-signup'
 
 export const meta: MetaFunction = () => {
   return {
-    title: "RubberGoose - Learn Web Development",
-  };
-};
+    title: 'RubberGoose - Learn Web Development',
+  }
+}
 
 export async function loader() {
   const posts = await contentfulClient.getEntries({
     limit: 3,
-    content_type: "post",
-    order: "-sys.createdAt",
-  });
+    content_type: 'post',
+    order: '-sys.createdAt',
+  })
   const tutorials = await contentfulClient.getEntries({
     limit: 3,
-    content_type: "tutorial",
-    order: "-sys.createdAt",
-  });
+    content_type: 'tutorial',
+    order: '-sys.createdAt',
+  })
   const tips = await contentfulClient.getEntries({
     limit: 3,
-    content_type: "tip",
-    order: "-sys.createdAt",
-  });
+    content_type: 'tip',
+    order: '-sys.createdAt',
+  })
 
   return json({
     posts: posts.items as Entry<PostFields>[],
     tutorials: tutorials.items as Entry<TutorialFields>[],
     tips: tips.items as Entry<TipFields>[],
-  });
+  })
 }
 export default function Index() {
-  const { posts, tips, tutorials } = useLoaderData<typeof loader>();
+  const { posts, tips, tutorials } = useLoaderData<typeof loader>()
   return (
     <main className="container mx-auto p-4">
       <div className="flex flex-wrap-reverse mt-16 items-center justify-center">
@@ -90,7 +90,7 @@ export default function Index() {
       />
       <NewsletterSignup />
     </main>
-  );
+  )
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
@@ -105,5 +105,5 @@ export function ErrorBoundary({ error }: { error: Error }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

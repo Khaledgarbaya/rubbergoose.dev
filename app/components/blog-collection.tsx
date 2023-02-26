@@ -1,6 +1,6 @@
-import { Link } from "@remix-run/react";
-import type { PostFields, TipFields, TutorialFields } from "~/types/types";
-import type { Entry } from "contentful";
+import { Link } from '@remix-run/react'
+import type { PostFields, TipFields, TutorialFields } from '~/types/types'
+import type { Entry } from 'contentful'
 
 export default function BlogCollection({
   posts,
@@ -8,10 +8,10 @@ export default function BlogCollection({
   description,
   baseRoute,
 }: {
-  baseRoute: string;
-  posts: Entry<PostFields>[] | Entry<TutorialFields>[] | Entry<TipFields>[];
-  title?: string;
-  description?: string;
+  baseRoute: string
+  posts: Entry<PostFields>[] | Entry<TutorialFields>[] | Entry<TipFields>[]
+  title?: string
+  description?: string
 }) {
   return (
     <div className="relative mt-32 px-6 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-28">
@@ -80,8 +80,8 @@ export default function BlogCollection({
                     </p>
                     <div className="flex space-x-1 text-sm text-gray-500">
                       <time dateTime={post.sys.createdAt}>
-                        {new Intl.DateTimeFormat("en-US", {
-                          dateStyle: "long",
+                        {new Intl.DateTimeFormat('en-US', {
+                          dateStyle: 'long',
                         }).format(new Date(post.sys.createdAt))}
                       </time>
                       <span aria-hidden="true">&middot;</span>
@@ -95,5 +95,5 @@ export default function BlogCollection({
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import type { LoaderArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { LoaderArgs, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Link,
   Links,
@@ -9,36 +9,44 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-} from "@remix-run/react";
-import Footer from "~/components/footer";
-import stylesheet from "~/styles/tailwind.css";
-import { getUser } from "./utils/session.server";
+} from '@remix-run/react'
+import Footer from '~/components/footer'
+import stylesheet from '~/styles/tailwind.css'
+import { getUser } from './utils/session.server'
 
 export function links() {
   return [
     // add a favicon
     {
-      rel: "icon",
-      href: "/favicon.png?v=2",
-      type: "image/png",
+      rel: 'icon',
+      href: '/favicon.png?v=2',
+      type: 'image/png',
     },
     {
-      rel: "stylesheet",
+      rel: 'stylesheet',
       href: stylesheet,
     },
-  ];
+  ]
 }
 export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  viewport: "width=device-width,initial-scale=1",
-});
+  charset: 'utf-8',
+  viewport: 'width=device-width,initial-scale=1',
+})
 
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
   const user = await getUser(request)
   return json({ user })
 }
 
-function Document({ children, user, title }: { children: React.ReactNode, user: { username: string } | null, title: string }) {
+function Document({
+  children,
+  user,
+  title,
+}: {
+  children: React.ReactNode
+  user: { username: string } | null
+  title: string
+}) {
   return (
     <html lang="en">
       <head>
@@ -69,7 +77,12 @@ function Document({ children, user, title }: { children: React.ReactNode, user: 
               strokeWidth={0}
             />
           </svg>
-          <rect width="100%" height="100%" strokeWidth={0} fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+          <rect
+            width="100%"
+            height="100%"
+            strokeWidth={0}
+            fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
+          />
         </svg>
         <nav className="container mx-auto flex justify-between items-center">
           <ul className="flex">
@@ -92,7 +105,10 @@ function Document({ children, user, title }: { children: React.ReactNode, user: 
                 <div className="flex justify-between space-x-4 items-center">
                   <span>{`Hi ${user.username}`}</span>
                   <form action="/logout" method="post">
-                    <button type="submit" className="group relative flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                    <button
+                      type="submit"
+                      className="group relative flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    >
                       Logout
                     </button>
                   </form>
@@ -117,7 +133,7 @@ export default function App() {
     <Document user={user} title="Rubbergoose">
       <Outlet />
     </Document>
-  );
+  )
 }
 export function CatchBoundary() {
   const caught = useCatch()
@@ -127,7 +143,9 @@ export function CatchBoundary() {
       <div className="rounded-md bg-red-50 p-4">
         <div className="flex">
           <div className="ml-3">
-            <h1 className="text-sm font-medium text-red-800">{caught.status} {caught.statusText}</h1>
+            <h1 className="text-sm font-medium text-red-800">
+              {caught.status} {caught.statusText}
+            </h1>
           </div>
         </div>
       </div>
@@ -148,5 +166,5 @@ export function ErrorBoundary({ error }: { error: Error }) {
         </div>
       </div>
     </Document>
-  );
+  )
 }
