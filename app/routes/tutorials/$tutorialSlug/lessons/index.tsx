@@ -36,17 +36,18 @@ export const loader = async ({ params }: LoaderArgs) => {
       status: 404,
     })
   }
-  return json({ lesson })
+  const { title, content, videoUrl } = lesson.fields
+  return json({ title, content, videoUrl })
 }
 export default function Lessons() {
-  const { lesson } = useLoaderData<typeof loader>()
+  const { title, content, videoUrl } = useLoaderData<typeof loader>()
   return (
     <main className='relative mx-auto w-full max-w-7xl items-start border-t border-transparent lg:mt-16 2xl:flex 2xl:border-gray-800'>
       <div className='flex flex-col border-gray-800 2xl:relative 2xl:h-full 2xl:w-full 2xl:border-r'>
         <div className='relative flex w-full items-center justify-center'>
           <iframe
             className='w-full aspect-video'
-            src={`${lesson.fields.videoUrl}`}
+            src={`${videoUrl}`}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
             title='Embedded youtube'
@@ -55,11 +56,11 @@ export default function Lessons() {
       </div>
 
       <div className='prose prose-amber max-w-6xl bg-white mx-auto p-8 rounded mt-16 '>
-        <h1>{lesson.fields.title}</h1>
+        <h1>{title}</h1>
         <div
           className='mt-4'
           dangerouslySetInnerHTML={{
-            __html: sanitizeHtml(marked(lesson.fields.content || '')),
+            __html: sanitizeHtml(marked(content || '')),
           }}
         />
       </div>
