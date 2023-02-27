@@ -31,7 +31,7 @@ export const loader = async ({ params }: LoaderArgs) => {
     })
   }
   const lesson = tutorial.items[0].fields.lessons.find(
-    (lesson) => lesson.fields.slug === params.lessonSlug
+    (lesson) => lesson.fields.slug === params.lessonSlug,
   )
   if (!lesson) {
     throw new Response('Not Found', {
