@@ -40,7 +40,7 @@ export default function Index() {
   const { title, content, firstLessonSlug } = useLoaderData<typeof loader>()
   return (
     <main className='container mx-auto p-4'>
-      <div className='prose prose-amber max-w-6xl bg-white mx-auto p-8 rounded mt-16 '>
+      <div className='prose prose-slate max-w-6xl bg-white mx-auto p-8 shadow shadow-slate-300 mt-16 '>
         <h1>{title}</h1>
         <div
           className='mt-4'
