@@ -3,6 +3,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
+    "test": "playwright test",
     "dev": "remix dev",
     "seed": "ts-node prisma/seed.ts",
     "docker": "docker-compose up -d",
@@ -29,6 +30,7 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.2",
     "@remix-run/dev": "^1.14.0",
     "@remix-run/eslint-config": "^1.14.0",
     "@tailwindcss/typography": "^0.5.9",
