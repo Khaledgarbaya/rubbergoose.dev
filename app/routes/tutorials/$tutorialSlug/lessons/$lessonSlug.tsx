@@ -56,7 +56,7 @@ export default function LessonSlug() {
         </div>
       </div>
 
-      <div className='prose prose-amber max-w-7xl bg-white mx-auto p-8 mt-6 rounded'>
+      <div className='prose prose-amber max-w-7xl bg-white mx-auto mt-2 p-8 shadow-slate-300'>
         <h1>{lesson.fields.title}</h1>
         <div
           className='mt-4'

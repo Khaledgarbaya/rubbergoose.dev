@@ -9,7 +9,7 @@ export default function PostsList({
   posts: PostEntry[] | TutorialEntry[] | TipEntry[]
 }) {
   return (
-    <div className='py-12 max-w-6xl bg-white mx-auto p-8 shadow shadow-amber-700  mt-16'>
+    <div className='py-12 max-w-6xl bg-white mx-auto p-8 shadow shadow-slate-300  mt-16'>
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
         <div className='mx-auto max-w-2xl lg:max-w-4xl'>
           <div className='mt-16 space-y-20 lg:mt-20 lg:space-y-20'>
