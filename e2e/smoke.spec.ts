@@ -6,6 +6,7 @@ test('Website loads and navigation works', async ({ page }) => {
   const heading = page.getByRole('heading', {
     name: 'Build Real World Projects To Learn Web Development',
   })
+
   await expect(heading).toBeVisible()
 
   await page
@@ -23,10 +24,12 @@ test('Website loads and navigation works', async ({ page }) => {
     .filter({ hasText: 'Blog' })
     .getByRole('link', { name: 'Blog' })
     .click()
+
   await expect(page).toHaveURL(/.*blog/)
 
   await page.getByRole('link', { name: 'Login' }).click()
   await expect(page).toHaveURL(/.*login/)
+
   const loginHeading = page.getByRole('heading', {
     name: 'Sign in to your account',
   })
