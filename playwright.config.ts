@@ -1,5 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const PORT = Number(process.env.PORT || 3000)
+
+if (!PORT) {
+  throw new Error(`PORT environment variable is required`)
+}
+
 export default defineConfig({
   testDir: './e2e',
   /* Maximum time one test can run for. */
@@ -55,7 +61,10 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'yarn dev',
-    port: 3000,
+    command: process.env.CI
+      ? `cross-env PORT=${PORT} npm run start:ci`
+      : `cross-env PORT=${PORT} npm run dev`,
+    port: Number(PORT),
+    reuseExistingServer: true,
   },
 })
