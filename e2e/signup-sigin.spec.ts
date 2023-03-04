@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { faker } from '@faker-js/faker'
 
-test('test', async ({ page }) => {
+test('Signup and Signin flow test', async ({ page }) => {
   const username = faker.internet.userName()
   await page.goto('/')
   await page.getByRole('link', { name: 'Login' }).click()
